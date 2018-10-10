@@ -23,18 +23,16 @@ const List_3_2 = {
         strokeWeight(5);
         smooth();
 
-        const step = 10;
-        let border_x = 20;
-        let border_y = 10;
-        let last_x = -999;
-        let last_y = -999;
+        let step_x = 10;
+        let step_y = 10;
+        let last_x = 20;
+        let last_y = 50;
         let y = 50;
 
-        for (let x = border_x; x <= width - border_x; x += step) {
-            y = border_y + random(height - 2 * border_y);
-            if (last_x > -999) {
-                line(x, y, last_x, last_y);
-            }
+        for (let x = 20; x <= 480; x += step_x) {
+            step_y = random(20) - 10;
+            y += step_y;
+            line(x, y, last_x, last_y);
             last_x = x;
             last_y = y;
         }
