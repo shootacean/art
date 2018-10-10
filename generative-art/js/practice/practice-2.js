@@ -45,29 +45,17 @@ const List_2_3 = {
         this.cent_y = height / 2;
 
         stroke(0);
-        strokeWeight(5);
-        fill(255, 50);
+        strokeWeight(1);
+        // noFill();
+        fill(255, 25);
     },
     /**
      * フレーム処理
      */
     draw: function () {
         if (this.diam <= 400) {
-            background(180);
-
-            strokeWeight(5);
-            fill(255, 50);
+            // background(180);
             ellipse(this.cent_x, this.cent_y, this.diam, this.diam);
-
-            // 同心円を描く
-            strokeWeight(1);
-            noFill();
-            let tmp_diam = this.diam;
-            while (tmp_diam > 10) {
-                ellipse(this.cent_x, this.cent_y, tmp_diam, tmp_diam);
-                tmp_diam -= 10;
-            }
-
             this.diam += 10;
         }
     }
