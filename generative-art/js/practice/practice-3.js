@@ -27,7 +27,8 @@ const List_3_2 = {
         line(20,50,480,50);
 
         stroke(20, 50, 70);
-        let step = 10;
+        // let step = 10;
+        let step = 1;
         let last_x = -999;
         let last_y = -999;
         let noise_y = random(10);
@@ -40,7 +41,8 @@ const List_3_2 = {
             }
             last_x = x;
             last_y = y;
-            noise_y += 0.1;
+            // noise_y += 0.1;
+            noise_y += 0.03;
         }
     }
 };
