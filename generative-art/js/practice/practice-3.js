@@ -23,18 +23,24 @@ const List_3_2 = {
         strokeWeight(5);
         smooth();
 
-        let step_x = 10;
-        let step_y = 10;
-        let last_x = 20;
-        let last_y = 50;
-        let y = 50;
+        stroke(0, 30);
+        line(20,50,480,50);
 
-        for (let x = 20; x <= 480; x += step_x) {
-            step_y = random(20) - 10;
-            y += step_y;
-            line(x, y, last_x, last_y);
+        stroke(20, 50, 70);
+        let step = 10;
+        let last_x = -999;
+        let last_y = -999;
+        let noise_y = random(10);
+        let y;
+
+        for (let x = 20; x <= 480; x += step) {
+            y = 10 + noise(noise_y) * 80;
+            if (last_x > -999) {
+                line(x, y, last_x, last_y);
+            }
             last_x = x;
             last_y = y;
+            noise_y += 0.1;
         }
     }
 };
