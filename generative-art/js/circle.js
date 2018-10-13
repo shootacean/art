@@ -1,10 +1,8 @@
 let center_x, center_y;
 
 function setup() {
-    createCanvas(800, 600);
-    background(255);
-    strokeWeight(5);
-    smooth();
+
+    setupCanvas();
 
     center_x = width / 2;
     center_y = height / 2;
@@ -20,8 +18,21 @@ function setup() {
 
 }
 
+const setupCanvas = () => {
+    createCanvas(800, 600);
+    background(255);
+
+    stroke(20, 50, 70);
+    strokeWeight(3);
+
+    frameRate(30);
+
+    smooth();
+};
+
 function draw() {
-    OpenClose.draw(center_x, center_y);
+    // OpenClose.draw(center_x, center_y);
+    DotOpenClose.draw(center_x, center_y);
 }
 
 const OpenClose = {
@@ -32,9 +43,6 @@ const OpenClose = {
     noise_scale: 0.05,
     draw: function (base_x, base_y) {
         background(255);
-        frameRate(60);
-        stroke(20, 50, 70);
-        strokeWeight(3);
 
         ellipse(base_x, base_y, this.radius, this.radius);
 
@@ -55,16 +63,38 @@ const OpenClose = {
 };
 
 const DotOpenClose = {
-    draw: function (base_x, base_y, radius, step = 5) {
-        background(255);
-        stroke(20, 50, 70);
-        let x, y;
+    radius: 100,
+    radius_min: 0,
+    radius_max: 300,
+    toggle: false,
+    noise_scale: 0.05,
+    draw: function (base_x, base_y, step = 12) {
+        this.refresh();
+
         for (let ang = 0; ang <= 360; ang += step) {
             let rad = radians(ang);
-            x = base_x + (radius * cos(rad));
-            y = base_y + (radius * sin(rad));
+            let x = base_x + (this.radius * cos(rad));
+            let y = base_y + (this.radius * sin(rad));
             point(x, y);
         }
+
+        if (this.toggle && this.radius >= this.radius_max) {
+            this.toggle = false;
+            this.noise_scale += 0.05;
+            this.radius_max = noise((this.noise_scale * 10) ** 4) * (this.radius_max + 100);
+        } else if (!this.toggle && this.radius <= this.radius_min) {
+            this.toggle = true;
+        }
+
+        if (this.toggle) {
+            this.radius += 10;
+        } else {
+            this.radius -= 10;
+        }
+
+    },
+    refresh: () => {
+        background(255);
     }
 };
 
