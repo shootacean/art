@@ -60,6 +60,14 @@ const setupCanvas = () => {
     smooth();
 };
 
+const effect = {
+    blur: (width, height, depth = 100) => {
+        noStroke();
+        fill(255, depth);
+        rect(0, 0, width, height);
+    }
+};
+
 const OpenClose = {
     radius: 10,
     radius_min: 0,
@@ -67,7 +75,10 @@ const OpenClose = {
     toggle: false,
     noise_scale: 0.05,
     draw: function (base_x, base_y) {
-        background(255);
+
+        // background(255);
+        effect.blur(width, height, 120);
+        stroke(20, 50, 70);
 
         // Circle.draw(base_x, base_y, this.radius);
         Circle.draw_with_dot(base_x, base_y, this.radius, 12);
