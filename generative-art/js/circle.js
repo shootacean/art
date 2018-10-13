@@ -60,7 +60,7 @@ const setupCanvas = () => {
     smooth();
 };
 
-const effect = {
+const Effect = {
     blur: (width, height, depth = 100) => {
         noStroke();
         fill(255, depth);
@@ -77,7 +77,7 @@ const OpenClose = {
     draw: function (base_x, base_y) {
 
         // background(255);
-        effect.blur(width, height, 120);
+        Effect.blur(width, height, 120);
         stroke(20, 50, 70);
 
         // Circle.draw(base_x, base_y, this.radius);
