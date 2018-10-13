@@ -27,19 +27,21 @@ function draw() {
 const OpenClose = {
     radius: 10,
     radius_min: 0,
-    radius_max: 200,
+    radius_max: 300,
     toggle: false,
     noise_scale: 0.05,
     draw: function (base_x, base_y) {
         background(255);
+        frameRate(60);
         stroke(20, 50, 70);
+        strokeWeight(3);
+
         ellipse(base_x, base_y, this.radius, this.radius);
+
         if (this.toggle && this.radius >= this.radius_max) {
             this.toggle = false;
-            // noise
             this.noise_scale += 0.05;
-            this.radius_max = noise(this.noise_scale) * this.radius_max + 100;
-            console.log(this.radius_max);
+            this.radius_max = noise((this.noise_scale * 10) ** 4) * (this.radius_max + 100);
         } else if (!this.toggle && this.radius <= this.radius_min) {
             this.toggle = true;
         }
