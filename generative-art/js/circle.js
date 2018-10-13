@@ -21,6 +21,10 @@ function setup() {
 
 }
 
+function draw() {
+    OpenClose.draw(center_x, center_y);
+}
+
 const Circle = {
     draw: (x, y, radius) => {
         ellipse(x, y, radius, radius);
@@ -56,11 +60,6 @@ const setupCanvas = () => {
     smooth();
 };
 
-function draw() {
-    // OpenClose.draw(center_x, center_y);
-    DotOpenClose.draw(center_x, center_y);
-}
-
 const OpenClose = {
     radius: 10,
     radius_min: 0,
@@ -70,7 +69,9 @@ const OpenClose = {
     draw: function (base_x, base_y) {
         background(255);
 
-        ellipse(base_x, base_y, this.radius, this.radius);
+        // Circle.draw(base_x, base_y, this.radius);
+        Circle.draw_with_dot(base_x, base_y, this.radius, 12);
+        // Circle.draw_with_rect(base_x, base_y, this.radius, 12, 5);
 
         if (this.toggle && this.radius >= this.radius_max) {
             this.toggle = false;
@@ -85,49 +86,6 @@ const OpenClose = {
         } else {
             this.radius -= 10;
         }
-    }
-};
-
-const DotOpenClose = {
-    radius: 100,
-    radius_min: 0,
-    radius_max: 300,
-    toggle: false,
-    noise_scale: 0.05,
-    draw: function (base_x, base_y) {
-        this.refresh();
-
-        // Circle.draw_with_dot(base_x, base_y, this.radius, 12);
-        Circle.draw_with_rect(base_x, base_y, this.radius, 12, 5);
-
-        if (this.toggle && this.radius >= this.radius_max) {
-            this.toggle = false;
-            this.noise_scale += 0.05;
-            this.radius_max = noise((this.noise_scale * 10) ** 4) * (this.radius_max + 100);
-        } else if (!this.toggle && this.radius <= this.radius_min) {
-            this.toggle = true;
-        }
-
-        if (this.toggle) {
-            this.radius += 10;
-        } else {
-            this.radius -= 10;
-        }
-
-    },
-    refresh: () => {
-        background(255);
-    }
-};
-
-const draw_circle_with_dot = (base_x, base_y, radius, step = 5) => {
-    stroke(20, 50, 70);
-    let x, y;
-    for (let ang = 0; ang <= 360; ang += step) {
-        let rad = radians(ang);
-        x = base_x + (radius * cos(rad));
-        y = base_y + (radius * sin(rad));
-        point(x, y);
     }
 };
 
