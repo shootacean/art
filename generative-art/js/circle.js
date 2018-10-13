@@ -16,7 +16,33 @@ function setup() {
     // draw_circle_with_dot(center_x, center_y, radius, 30);
     // draw_rasen_100(center_x, center_y, 10);
 
+    // Circle.draw(center_x, center_y, 150);
+    // Circle.draw_with_dot(center_x, center_y, 150, 12);
+
 }
+
+const Circle = {
+    draw: (x, y, radius) => {
+        ellipse(x, y, radius, radius);
+    },
+    draw_with_dot: (x, y, radius, step) => {
+        for (let ang = 0; ang <= 360; ang += step) {
+            let rad = radians(ang);
+            let _x = x + (radius * cos(rad));
+            let _y = y + (radius * sin(rad));
+            point(_x, _y);
+        }
+    },
+    draw_with_rect: (x, y, radius, step, length, is_fill = false) => {
+        if (is_fill) fill(0);
+        for (let ang = 0; ang <= 360; ang += step) {
+            let rad = radians(ang);
+            let _x = x + (radius * cos(rad));
+            let _y = y + (radius * sin(rad));
+            rect(_x, _y, length, length);
+        }
+    }
+};
 
 const setupCanvas = () => {
     createCanvas(800, 600);
@@ -68,15 +94,11 @@ const DotOpenClose = {
     radius_max: 300,
     toggle: false,
     noise_scale: 0.05,
-    draw: function (base_x, base_y, step = 12) {
+    draw: function (base_x, base_y) {
         this.refresh();
 
-        for (let ang = 0; ang <= 360; ang += step) {
-            let rad = radians(ang);
-            let x = base_x + (this.radius * cos(rad));
-            let y = base_y + (this.radius * sin(rad));
-            point(x, y);
-        }
+        // Circle.draw_with_dot(base_x, base_y, this.radius, 12);
+        Circle.draw_with_rect(base_x, base_y, this.radius, 12, 5);
 
         if (this.toggle && this.radius >= this.radius_max) {
             this.toggle = false;
